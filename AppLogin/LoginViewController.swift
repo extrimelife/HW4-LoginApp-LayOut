@@ -13,12 +13,12 @@ class LoginViewController: UIViewController {
     private let login = "User"
     private let password = "Password"
     
-    lazy var loginTextField: UITextField = {
+    private lazy var loginTextField: UITextField = {
         setupTextField("User Name")
     }()
     
     
-    lazy var passwordTextfield: UITextField = {
+    private lazy var passwordTextfield: UITextField = {
         let passwordTF = setupTextField("Password")
         passwordTF.isSecureTextEntry = true
         return passwordTF
