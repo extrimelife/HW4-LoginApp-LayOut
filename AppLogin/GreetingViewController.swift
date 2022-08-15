@@ -9,31 +9,19 @@ import UIKit
 
 class GreetingViewController: UIViewController {
     
-    //MARK: - переменная для хранения имени пользователя
     var nameLabel: String!
     
-    private let welcomeLabel: UILabel = {
-        let labelWelcome = UILabel()
-        labelWelcome.translatesAutoresizingMaskIntoConstraints = false
-        labelWelcome.text = "Welcome,"
-        labelWelcome.textColor = .white
-        labelWelcome.font = .systemFont(ofSize: 30, weight: .bold)
-        return labelWelcome
+    //MARK: - Приватные свойства
+    private lazy var welcomeLabel: UILabel = {
+        setupLabel("Welcome,")
     }()
     
-    private let userLabel: UILabel = {
-        let labelUser = UILabel()
-        labelUser.translatesAutoresizingMaskIntoConstraints = false
-        labelUser.text = ""
-        labelUser.textColor = .white
-        labelUser.font = .systemFont(ofSize: 30, weight: .bold)
-        return labelUser
+    private lazy var userLabel: UILabel = {
+        setupLabel("")
     }()
     
-    private let handLabel: UILabel = {
-        let labelHand = UILabel()
-        labelHand.translatesAutoresizingMaskIntoConstraints = false
-        labelHand.text = "\u{1F44B}"
+    private lazy var handLabel: UILabel = {
+        let labelHand = setupLabel("\u{1F44B}")
         labelHand.font = .systemFont(ofSize: 60)
         return labelHand
     }()
@@ -63,7 +51,7 @@ class GreetingViewController: UIViewController {
     }
     
     
-    //MARK: - Action для UIButton Log out
+    //MARK: - Action для UIButton 
     @objc private func backAction() {
         dismiss(animated: true)
     }
@@ -84,5 +72,17 @@ class GreetingViewController: UIViewController {
             logOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
+    }
+}
+
+//MARK: - extention UILabel
+extension GreetingViewController {
+    private func setupLabel(_ text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = text
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 30, weight: .bold)
+        return label
     }
 }

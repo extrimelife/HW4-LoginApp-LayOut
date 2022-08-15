@@ -64,42 +64,36 @@ class LoginViewController: UIViewController {
     }
     
     
-    //MARK: - Метод для скрытия клавиатуры по тапу на любую часть экрана
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        let press: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        press.cancelsTouchesInView = false
-        view.addGestureRecognizer(press)
+        view.endEditing(true)
         
     }
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
+
     
-    
-    //MARK: - Action для кнопки логин
+    //MARK: - Action UIButton
     @objc private func loginAction() {
         if loginTextField.text == login && passwordTextfield.text == password {
             let greetingVC = GreetingViewController()
             greetingVC.nameLabel = loginTextField.text
             greetingVC.modalPresentationStyle = .overCurrentContext
-            present(greetingVC, animated: true)
-            loginTextField.text = ""
-            passwordTextfield.text = ""
+            present(greetingVC, animated: true) {
+                self.loginTextField.text = ""
+                self.passwordTextfield.text = ""
+            }
         } else {
             showAlert(title: "Invalid login or password", message: "Please enter correct login and password")
         }
         
     }
     
-    //MARK: - Action для UIButton для напоминания имени пользователя
+ 
     @objc private func forgotUserNameAction() {
         showAlert(title: "Oops!", message: "Your name is \(login) \u{1F609}")
     }
     
     
-    //MARK: - Action для UIButton для напоминания пароля
-    @objc private func forgotPassAction() {
+  @objc private func forgotPassAction() {
         showAlert(title: "Oops!", message: "Your password is \(password) \u{1F609}")
     }
     
@@ -129,7 +123,7 @@ class LoginViewController: UIViewController {
     
 }
 
-//MARK: - extention UITextField чтобы не дублировать код
+//MARK: - extention UITextField
 extension LoginViewController {
     private func setupTextField(_ playceholder: String) -> UITextField {
         let textField = UITextField()
@@ -150,7 +144,7 @@ extension LoginViewController {
     }
 }
 
-//MARK: - extention UIButton чтобы не дублировать код
+//MARK: - extention UIButton
 extension LoginViewController {
     private func setupButton(title: String) -> UIButton {
         let button = UIButton()
